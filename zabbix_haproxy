@@ -164,7 +164,7 @@ else {
 while (($pxname, $nodes) = each(%proxies)) {
     #print "proxy: $pxname\n";
     while (($svname, $data) = each (%$nodes)) {
-	#print "-- svname: " . $$data{svname} . "\n";
+	#print "-- svname: " . $$data{svname} . "." . $$data{pxname} . $data ."\n";
 	if ($$data{svname} eq "BACKEND") {
 	    #print "Found backend $pxname\n";
 	    $backends{$pxname} = $data;
@@ -220,24 +220,24 @@ sub send_data {
     my $zabbix_name = shift;
     my $data = shift;
     #$verbose and print "Sending data for zabbix name $zabbix_name. pxname: " . $$data{pxname} . ", svname: " . $$data{svname} . "\n";
-    send_data_item($zabbix_name, 'pxname', $$data{pxname});
-    send_data_item($zabbix_name, 'svname', $$data{svname});
-    send_data_item($zabbix_name, 'req_rate', $$data{req_rate});
-    send_data_item($zabbix_name, 'hrsp_1xx', $$data{hrsp_1xx});
-    send_data_item($zabbix_name, 'hrsp_2xx', $$data{hrsp_2xx});
-    send_data_item($zabbix_name, 'hrsp_3xx', $$data{hrsp_3xx});
-    send_data_item($zabbix_name, 'hrsp_4xx', $$data{hrsp_4xx});
-    send_data_item($zabbix_name, 'hrsp_5xx', $$data{hrsp_5xx});
-    send_data_item($zabbix_name, 'rate', $$data{rate});
-    send_data_item($zabbix_name, 'wretr', $$data{wretr});
-    send_data_item($zabbix_name, 'eresp', $$data{eresp});
-    send_data_item($zabbix_name, 'econ', $$data{econ});
-    send_data_item($zabbix_name, 'ereq', $$data{ereq});
-    send_data_item($zabbix_name, 'bin', $$data{bin});
-    send_data_item($zabbix_name, 'bout', $$data{bout});
-    send_data_item($zabbix_name, 'stot', $$data{stot});
-    send_data_item($zabbix_name, 'smax', $$data{smax});
-    send_data_item($zabbix_name, 'scur', $$data{scur});
+    send_data_item($zabbix_name, 'pxname[' . $$data{pxname} . ']', $$data{pxname});
+    send_data_item($zabbix_name, 'svname[' . $$data{pxname} . ']',  $$data{svname});
+    send_data_item($zabbix_name, 'req_rate[' . $$data{pxname} . ']', $$data{req_rate});
+    send_data_item($zabbix_name, 'hrsp_1xx[' . $$data{pxname} . ']', $$data{hrsp_1xx});
+    send_data_item($zabbix_name, 'hrsp_2xx[' . $$data{pxname} . ']', $$data{hrsp_2xx});
+    send_data_item($zabbix_name, 'hrsp_3xx[' . $$data{pxname} . ']', $$data{hrsp_3xx});
+    send_data_item($zabbix_name, 'hrsp_4xx[' . $$data{pxname} . ']', $$data{hrsp_4xx});
+    send_data_item($zabbix_name, 'hrsp_5xx[' . $$data{pxname} . ']', $$data{hrsp_5xx});
+    send_data_item($zabbix_name, 'rate[' . $$data{pxname} . ']', $$data{rate});
+    send_data_item($zabbix_name, 'wretr[' . $$data{pxname} . ']', $$data{wretr});
+    send_data_item($zabbix_name, 'eresp[' . $$data{pxname} . ']', $$data{eresp});
+    send_data_item($zabbix_name, 'econ[' . $$data{pxname} . ']', $$data{econ});
+    send_data_item($zabbix_name, 'ereq[' . $$data{pxname} . ']', $$data{ereq});
+    send_data_item($zabbix_name, 'bin[' . $$data{pxname} . ']', $$data{bin});
+    send_data_item($zabbix_name, 'bout[' . $$data{pxname} . ']', $$data{bout});
+    send_data_item($zabbix_name, 'stot[' . $$data{pxname} . ']', $$data{stot});
+    send_data_item($zabbix_name, 'smax[' . $$data{pxname} . ']', $$data{smax});
+    send_data_item($zabbix_name, 'scur[' . $$data{pxname} . ']', $$data{scur});
 }
 
 # Send a single data item to zabbix server.
